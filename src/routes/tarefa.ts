@@ -4,7 +4,7 @@ import { Tarefa } from '../models/Tarefa';
 const router = Router();
 
 // Listar todas
-router.get('tarefas', async (_req, res) => {
+router.get('/tarefas', async (_req, res) => {
   const tarefas = await Tarefa.find();
   res.json(tarefas);
 });
