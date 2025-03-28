@@ -6,6 +6,8 @@ services:
       - "27017:27017"
     volumes:
       - mongodb_data:/data/db
+    networks:
+      - backend
 
   api:
     build: .
@@ -13,10 +15,12 @@ services:
     expose:
       - "3000"
     environment:
-      - MONGODB_URI=mongodb://mongo:27017/tarefasdb
-      - PORT=3000
+      MONGODB_URI: mongodb://mongo:27017/tarefasdb
+      PORT: 3000
     depends_on:
       - mongo
+    networks:
+      - backend
 
   nginx:
     image: nginx:alpine
@@ -28,6 +32,11 @@ services:
       - ./public:/usr/share/nginx/html:ro
     depends_on:
       - api
+    networks:
+      - backend
 
 volumes:
   mongodb_data:
+
+networks:
+  backend:
