@@ -7,7 +7,7 @@ dotenv.config();
 
 const app = express();
 app.use(express.json());
-app.use('/api/tarefas', tarefaRoutes);
+app.use('/api', tarefaRoutes);
 
 mongoose.connect(process.env.MONGODB_URI!)
   .then(() => console.log('MongoDB conectado'))
