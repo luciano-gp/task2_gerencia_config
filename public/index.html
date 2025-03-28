@@ -49,7 +49,7 @@
   <script>
     async function carregarTarefas() {
       try {
-        const response = await fetch('/api/api/tarefas');
+        const response = await fetch('/api/tarefas');
         const tarefas = await response.json();
 
         const tbody = document.querySelector('#tabela-tarefas tbody');
