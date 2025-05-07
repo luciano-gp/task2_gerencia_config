@@ -1,4 +1,4 @@
-import { Document, Schema, model } from 'mongoose';
+import { Document, Schema, Types, model } from 'mongoose';
 
 export interface ITarefa extends Document {
   descricao: string;
@@ -6,6 +6,16 @@ export interface ITarefa extends Document {
   data_prevista: Date;
   data_encerramento?: Date;
   situacao: 'pendente' | 'em_andamento' | 'concluida' | 'cancelada';
+  usuario: Types.ObjectId;
+}
+
+export interface TarefaFiltro {
+  usuario: string;
+  situacao?: string;
+  data_prevista?: {
+    $gte?: Date;
+    $lte?: Date;
+  };
 }
 
 const TarefaSchema = new Schema<ITarefa>({
@@ -17,6 +27,11 @@ const TarefaSchema = new Schema<ITarefa>({
     type: String,
     enum: ['pendente', 'em_andamento', 'concluida', 'cancelada'],
     default: 'pendente',
+  },
+  usuario: {
+    type: Schema.Types.ObjectId,
+    ref: 'Usuario',
+    required: true,
   },
 });
 
